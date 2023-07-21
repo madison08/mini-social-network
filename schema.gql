@@ -15,9 +15,16 @@ type Query {
 
 type Mutation {
   articleCreate(input: ArticleCreateInput!): Article!
+  articleUpdate(articleId: ID!, input: ArticleUpdateInput!): Article!
 }
 
 input ArticleCreateInput {
+  title: String!
+  description: String!
+  image: String!
+}
+
+input ArticleUpdateInput {
   title: String!
   description: String!
   image: String!
