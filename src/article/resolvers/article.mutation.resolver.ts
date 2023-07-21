@@ -23,4 +23,11 @@ export class ArticleMutationsResolver{
         return this.articleService.updateArticle(articleId,input);
     }
 
+    @Mutation(() => Article)
+    async articleDelete(
+        @Args('articleId', {type: () => ID}) articleId: string
+    ){
+        return this.articleService.deleteArticle(articleId);
+    }
+
 }

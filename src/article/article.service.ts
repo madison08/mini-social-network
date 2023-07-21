@@ -23,11 +23,25 @@ export class ArticleService {
     }
 
     async updateArticle(articleId: string, input: ArticleUpdateInput){
-        const article = await this.articleRepository.findOneOrFail({where: {id: articleId}});
+        const article = await this.articleRepository.findOne({where: {id: articleId}});
+        if(!article){
+            throw new NotFoundException("Ressource non trouvée");
+        }
         article.title = input.title;
         article.description = input.description;
         article.image = input.image;
-        return await this.articleRepository.save(article);
+        await this.articleRepository.save(article);
+
+        return article;
+    }
+
+    async deleteArticle(articleId: string){
+        const article = await this.articleRepository.findOne({where: {id: articleId}});
+        if(!article){
+            throw new NotFoundException("Ressource non trouvée");
+        }
+        await this.articleRepository.delete(article);
+        return article;
     }
 
 }
