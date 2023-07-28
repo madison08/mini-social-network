@@ -4,6 +4,7 @@ import { Article } from './entities/article.entity';
 import { Repository } from 'typeorm';
 import { ArticleCreateInput } from './dto/article-create.dto';
 import { ArticleUpdateInput } from './dto/article-update.dto';
+import { ArticlePaginationArg } from './dto/article-pagination.dto';
 
 @Injectable()
 export class ArticleService {
@@ -40,8 +41,21 @@ export class ArticleService {
         if(!article){
             throw new NotFoundException("Ressource non trouvée");
         }
-        await this.articleRepository.delete(article);
+
+        await this.articleRepository.delete({id: articleId});
         return article;
+    }
+
+    async articlePagination(args: ArticlePaginationArg){
+        const [nodes, totalCount] = await this.articleRepository.findAndCount({
+            skip: args.skip,
+            take: args.take,
+        });
+
+        return {
+            nodes,
+            totalCount,
+        }
     }
 
 }
