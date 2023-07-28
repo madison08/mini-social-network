@@ -11,6 +11,7 @@ type Article {
 
 type Query {
   hello: String!
+  articles: [Article!]!
 }
 
 type Mutation {
