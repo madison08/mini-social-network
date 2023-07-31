@@ -7,6 +7,8 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppResolver } from './app.resolver';
 import { ArticleModule } from './article/article.module';
+import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -29,7 +31,9 @@ import { ArticleModule } from './article/article.module';
         synchronize: true
       })
     }),
-    ArticleModule
+    ArticleModule,
+    AuthModule,
+    UserModule
   ],
   controllers: [AppController],
   providers: [AppService, AppResolver],
